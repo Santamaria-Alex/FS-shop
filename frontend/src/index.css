@@ -1,3 +1,34 @@
 main {
   min-height: 80vh;
 }
+
+.rating span {
+  margin: 0.1rem;
+}
+
+h3 {
+  padding: 1rem 0;
+}
+
+.product-header {
+  max-height: 75%;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.product-img {
+  /* width: 425px; */
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.product {
+  height: 610px;
+}
+
+.product-body {
+  position: absolute;
+  bottom: 0;
+}
