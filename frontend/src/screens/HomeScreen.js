@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import products from "../products";
 import Product from "../components/Product";
 import Header from "../components/Header";
 import { Container } from "react-bootstrap";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const HomeScreen = () => {
+  const [products, setProducts] = useState([]);
+
+  //as soon as page loads, useEffect fires off
+  //using useEffect to get data from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get("/api/products");
+
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
       <Header />
