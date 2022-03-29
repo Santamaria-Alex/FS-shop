@@ -1,9 +1,16 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const products = require("./data/products");
+const connectDB = require("./config/db");
+
+dotenv.config();
+
+//mongoDB init
+connectDB();
 
 //init express
 const app = express();
-const port = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.get("/", (req, res) => {
   res.send("api is running");
@@ -21,4 +28,4 @@ app.get("/api/products/:id", (req, res) => {
   res.json(product);
 });
 
-app.listen(port, console.log(`Server running on port: ${port}`));
+app.listen(PORT, console.log(`Server running on port: ${PORT}`));
