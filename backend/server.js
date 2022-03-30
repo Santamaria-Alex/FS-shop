@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const products = require("./data/products");
 const connectDB = require("./config/db");
+const colors = require("colors");
 
 dotenv.config();
 
@@ -28,4 +29,4 @@ app.get("/api/products/:id", (req, res) => {
   res.json(product);
 });
 
-app.listen(PORT, console.log(`Server running on port: ${PORT}`));
+app.listen(PORT, console.log(`Server running on port: ${PORT}`.yellow.bold));
