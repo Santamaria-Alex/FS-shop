@@ -47,7 +47,7 @@ const destroyData = async () => {
     await Product.deleteMany();
     await User.deleteMany();
 
-    console.log("Data Imported".red.inverse);
+    console.log("Data Destroyed".red.inverse);
     process.exit(); //not sure what this does
   } catch (error) {
     console.error(`${error}`.red.inverse);
@@ -55,7 +55,7 @@ const destroyData = async () => {
   }
 };
 
-//process.argv[2] refers to what's called in the command line at the end?
+//process.argv[2] refers to what's called in the command line at the end? in this case the "-d"
 //>>command line:
 //>> node backend/server -d
 //added script to package.json, can run w npm run data:import
