@@ -4,6 +4,7 @@ const products = require("./data/products");
 const connectDB = require("./config/db");
 const colors = require("colors");
 
+//this is where we hide stuff
 dotenv.config();
 
 //mongoDB init

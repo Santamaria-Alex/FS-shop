@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: "1",
     name: "Bass Guitar",
     image: "/images/bass.jpg",
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "2",
     name: "Drums",
     image: "/images/drums.jpg",
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: "3",
     name: "Electric Guitar",
     image: "/images/electricGuitar.jpg",
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "4",
     name: "Kirk Hammet Guitar Pick",
     image: "/images/pick.jpg",
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: "5",
     name: "Metallica Live Record",
     image: "/images/record.jpg",
     description: "Metallica Live! on vynil record, signed by the entire band.",
@@ -64,7 +59,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: "6",
     name: "T-Shirt",
     image: "/images/tshirt.jpg",
     description: "Nirvana concert t-shirt",
