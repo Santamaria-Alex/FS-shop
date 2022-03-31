@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   ButtonGroup,
   Card,
@@ -9,25 +8,38 @@ import {
   ListGroupItem,
   Row,
 } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { listProductDetails } from "../actions/productActions";
 import Rating from "../components/Rating";
 
 const ProductScreen = ({}) => {
   const { id } = useParams(); //useParams gets the parameters of the url, in this case we need the id
   // const product = products.find((p) => p._id === id);
 
-  const [product, setProduct] = useState({});
+  //DONT NEED THIS WHEN USING REDUX
+  // const [product, setProduct] = useState({});
+
+  //GOING TO USE REDUX INSTEAD OF AXIOS TO GET DATA
+  // useEffect(() => {
+  //   const fetchProduct = async () => {
+  //     const { data } = await axios.get(`/api/products/${id}`);
+
+  //     setProduct(data);
+  //   };
+
+  //   fetchProduct();
+  // }, []);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${id}`);
+    //bring in from productActions.js, id comes from useParams
+    dispatch(listProductDetails(id));
+  }, [dispatch]);
 
-      setProduct(data);
-    };
-
-    fetchProduct();
-  }, []);
+  const product = [];
 
   return (
     <>
