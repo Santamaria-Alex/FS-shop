@@ -29,6 +29,7 @@ export const listProducts = () => async (dispatch) => {
 };
 
 //4th part, where we actually send request
+//this is where we make request to backend
 export const listProductDetails = (id) => async (dispatch) => {
   try {
     //dispatch === send?
