@@ -5,14 +5,24 @@ import {
   productListReducer,
   productDetailsReducer,
 } from "./reducers/productReducers";
+import { cartReducer } from "./reducers/cartReducer";
 
 //3rd part, bring in reducer to store
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  cart: cartReducer,
 });
 
-const initialState = {};
+//if theres a 'cartItems' in localStorage then we get the data and parse it bc its a string
+//if there isnt then set an empty array
+const cartItemsFromStorage = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+
+const initialState = {
+  cart: { cartItems: cartItemsFromStorage },
+};
 
 const middleware = [thunk];
 

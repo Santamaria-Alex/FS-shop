@@ -1,0 +1,2 @@
+export const CART_ADD_IDEM = "CART_ADD_ITEM";
+export const CART_REMOVE_IDEM = "CART_REMOVE_ITEM";
