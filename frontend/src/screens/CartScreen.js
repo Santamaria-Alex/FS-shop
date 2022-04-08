@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ButtonGroup,
@@ -22,7 +22,15 @@ const CartScreen = () => {
 
   //   const { search } = useLocation().search;
   //   const name = new URLSearchParams(search).get("name");
-  //   console.log(name);
+  //   //   console.log(name);
+  //   console.log(search);
+
+  const { id } = useParams();
+  console.log(id);
+
+  const [searchParams] = useSearchParams();
+  const qty = Number(searchParams.get("qty"));
+  console.log(qty);
 
   return <div>CartScreen</div>;
 };
