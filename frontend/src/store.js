@@ -16,9 +16,9 @@ const reducer = combineReducers({
 
 //if theres a 'cartItems' in localStorage then we get the data and parse it bc its a string
 //if there isnt then set an empty array
-const cartItemsFromStorage = localStorage.getItem("cartItems")
-  ? JSON.parse(localStorage.getItem("cartItems"))
-  : [];
+const cartItemsFromStorage = localStorage.getItem("cartItems") && if (localStorage.getItem("cartItems") !== 'undefined') {
+  JSON.parse(localStorage.getItem("cartItems"))
+} else [];
 
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
