@@ -39,7 +39,7 @@ const ProductScreen = () => {
   const dispatch = useDispatch();
 
   //CART
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     //bring in from productActions.js, ID comes from useParams

@@ -39,7 +39,6 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Header />
       <main className="py-3">
         <Container>
           <h1>Latest Product</h1>
@@ -60,8 +59,6 @@ const HomeScreen = () => {
           )}
         </Container>
       </main>
-
-      <Footer />
     </>
   );
 };
