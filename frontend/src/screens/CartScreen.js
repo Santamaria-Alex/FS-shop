@@ -27,6 +27,11 @@ const CartScreen = () => {
   //useDispatch is used to dispatch an action, while useSelector is used to get the state from the redux store
   const dispatch = useDispatch();
 
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  console.log(cartItems);
+
   useEffect(() => {
     if (id) {
       dispatch(addToCart(id, qty));
