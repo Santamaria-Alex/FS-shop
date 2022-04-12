@@ -1,11 +1,11 @@
 import axios from "axios";
-import { CART_ADD_IDEM } from "../constants/cartConstants";
+import { CART_ADD_ITEM } from "../constants/cartConstants";
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`);
 
   dispatch({
-    type: CART_ADD_IDEM,
+    type: CART_ADD_ITEM,
     //payload is the data we send
     payload: {
       product: data._id,
@@ -19,5 +19,5 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 
   //have to stringify bc we can only store strings in local storage
   //have to use JSON.parse to extract it
-  localStorage.setItem("cartItems", JSON.stringify(getState().cart.carItems));
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
 };
