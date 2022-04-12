@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import Product from "../components/Product";
-import Header from "../components/Header";
 import { Container } from "react-bootstrap";
-import Footer from "../components/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../actions/productActions";
 import Message from "../components/Message";

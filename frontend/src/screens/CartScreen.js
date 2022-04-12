@@ -3,10 +3,8 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
-  ButtonGroup,
   Card,
   Col,
-  Form,
   FormControl,
   Image,
   ListGroup,
@@ -107,6 +105,10 @@ const CartScreen = () => {
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
               </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
             </ListGroupItem>
           </ListGroup>
         </Card>
