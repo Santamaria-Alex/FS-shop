@@ -12,8 +12,8 @@ import {
   Row,
 } from "react-bootstrap";
 import Message from "../components/Message";
-import { addToCart } from "../actions/cartActions";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { addToCart, removeFromCart } from "../actions/cartActions";
+import { useNavigate, useParams } from "react-router";
 
 const CartScreen = () => {
   //get item id
@@ -40,7 +40,7 @@ const CartScreen = () => {
   }, [dispatch, id, qty]); //dependencies: if either change, useEffect fires off
 
   const removeFromCartHandler = (id) => {
-    console.log(id);
+    dispatch(removeFromCart(id));
   };
 
   //init useNavigate
