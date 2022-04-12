@@ -13,7 +13,7 @@ import {
 } from "react-bootstrap";
 import Message from "../components/Message";
 import { addToCart } from "../actions/cartActions";
-import { useLocation, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 
 const CartScreen = () => {
   //get item id
@@ -41,6 +41,13 @@ const CartScreen = () => {
 
   const removeFromCartHandler = (id) => {
     console.log(id);
+  };
+
+  //init useNavigate
+  const navigate = useNavigate();
+
+  const checkoutHandler = () => {
+    navigate("/login?redirect=shipping");
   };
 
   return (
@@ -109,6 +116,16 @@ const CartScreen = () => {
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
+            </ListGroupItem>
+            <ListGroupItem>
+              <Button
+                type="button"
+                className="btn-block"
+                disabled={cartItems.length === 0}
+                onClick={checkoutHandler}
+              >
+                Proceed to Checkout
+              </Button>
             </ListGroupItem>
           </ListGroup>
         </Card>
