@@ -32,4 +32,17 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
+//this func runs before we save
+//we don't have to apply this to user Controller
+userSchema.pre("save", async function (next) {
+  //check that the password hasn't been modiefied so new hashed PW isn't created
+  if (!this.isModified("password")) {
+    next();
+  }
+
+  //hash password
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
 module.exports = mongoose.model("User", userSchema);
