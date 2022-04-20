@@ -6,12 +6,15 @@ import {
   productDetailsReducer,
 } from "./reducers/productReducers";
 import { cartReducer } from "./reducers/cartReducer";
+import { userLoginReducer } from "./reducers/userReducers";
 
 //3rd part, bring in reducer to store
+//this is the state, can view in Redux Devtool
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
+  userLogin: userLoginReducer,
 });
 
 //if theres a 'cartItems' in localStorage then we get the data and parse it bc its a string
@@ -28,8 +31,20 @@ const lsUndefined = localStorage.getItem("cartItems") !== "undefined";
 const cartItemsFromStorage =
   lsTrue && lsUndefined ? JSON.parse(localStorage.getItem("cartItems")) : [];
 
+//get user info from local storage
+//have to check if undefined first
+const userlsTrue = localStorage.getItem("userInfo");
+
+const userlsUndefined = localStorage.getItem("userInfo") !== "undefined";
+
+const userInfoFromStorage =
+  userlsTrue && userlsUndefined
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null;
+
 const initialState = {
   cart: { cartItems: cartItemsFromStorage },
+  userLogin: { userInfo: userInfoFromStorage },
 };
 
 const middleware = [thunk];
