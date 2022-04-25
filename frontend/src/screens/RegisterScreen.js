@@ -20,6 +20,7 @@ const RegisterScreen = () => {
 
   //this data comes from the user Reducer
   const userRegister = useSelector((state) => state.userRegister);
+  //destructuring data
   const { loading, error, userInfo } = userRegister;
 
   const location = useLocation();
@@ -90,7 +91,7 @@ const RegisterScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button className="mt-3" type="submit" variant="primary">
           Register
         </Button>
       </Form>

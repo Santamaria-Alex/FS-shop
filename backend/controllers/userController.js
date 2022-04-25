@@ -93,4 +93,40 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+//////////////////////////////////////////////////////////////
+
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+
+//async handler is middleware for handling exceptions
+const updateUserProfile = asyncHandler(async (req, res) => {
+  //get the logged in user
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      //PW will be encrypted automatically even if it's changed
+      //Middleware will be called that we added in the user Model
+      user.password = req.body.password;
+    }
+
+    const updatedUser = await user.save();
+
+    //send the updated data
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
+});
+
 module.exports = { authUser, registerUser, getUserProfile };
