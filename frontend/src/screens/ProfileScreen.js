@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUserProfile } from "../actions/userActions";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -28,9 +28,6 @@ const ProfileScreen = () => {
   //check for success value from updateUserProfile state
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
-
-  const location = useLocation();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   //use this instead of history for V6
   const navigate = useNavigate();
