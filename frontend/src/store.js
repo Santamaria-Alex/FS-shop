@@ -33,7 +33,6 @@ const reducer = combineReducers({
 
 //above equation didn't work for undefined local storage bc u can't parse undefined
 const lsTrue = localStorage.getItem("cartItems");
-
 const lsUndefined = localStorage.getItem("cartItems") !== "undefined";
 
 const cartItemsFromStorage =
@@ -42,7 +41,6 @@ const cartItemsFromStorage =
 //get user info from local storage
 //have to check if undefined first
 const userlsTrue = localStorage.getItem("userInfo");
-
 const userlsUndefined = localStorage.getItem("userInfo") !== "undefined";
 
 const userInfoFromStorage =
@@ -50,8 +48,18 @@ const userInfoFromStorage =
     ? JSON.parse(localStorage.getItem("userInfo"))
     : null;
 
+//check for shipping address in local storage
+const shippingAddressFromStorage =
+  localStorage.getItem("shippingAddress") &&
+  localStorage.getItem("shippingAddress") !== "undefined"
+    ? JSON.parse(localStorage.getItem("shippingAddress"))
+    : {};
+
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 };
 

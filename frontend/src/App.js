@@ -8,12 +8,14 @@ import Footer from "./components/Footer";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ShippingScreen from "./screens/ShippingScreen";
 
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="login/shipping" element={<ShippingScreen />} />
         <Route path="login" element={<LoginScreen />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="profile" element={<ProfileScreen />} />
