@@ -46,3 +46,8 @@ h2 {
 button {
   margin-top: 1rem;
 }
+
+.img {
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+}
