@@ -10,10 +10,24 @@ const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
 
   //calc prices
+  //items gross price
   cart.itemsPrice = cart.cartItems.reduce(
     (acc, item) => acc + item.price * item.qty,
     0
   );
+
+  //make up shipping price
+  cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 100).toFixed(2);
+
+  //tax price
+  cart.taxPrice = Number((0.0825 * cart.itemsPrice).toFixed(2));
+
+  //total price
+  cart.totalPrice = (
+    Number(cart.itemsPrice) +
+    Number(cart.shippingPrice) +
+    Number(cart.taxPrice)
+  ).toFixed(2);
 
   const placeOrderHandler = () => {
     console.log("order");
