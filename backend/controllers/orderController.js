@@ -4,7 +4,6 @@ const Order = require("../models/orderModel");
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
-//get all products from products.js
 //async handler is middleware for handling exceptions
 const addOrderItems = asyncHandler(async (req, res) => {
   //get from order model/schema
@@ -43,4 +42,29 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addOrderItems };
+/////////////////////////////////////////////////////////////////
+
+// @desc    Get order by id
+// @route   GET /api/orders/:id
+// @access  Private
+//async handler is middleware for handling exceptions
+const getOrderById = asyncHandler(async (req, res) => {
+  //fetch order
+  //get id from URL, hence .params
+  //Populate will automatically replace the specified path in the document, with document(s) from other collection(s).
+  //turns this => "user": "6244b84a0c6266631f87604b",
+  //into this =>
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
+
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404);
+    throw new Error("Order not found!");
+  }
+});
+
+module.exports = { addOrderItems, getOrderById };
