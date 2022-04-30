@@ -53,7 +53,10 @@ const getOrderById = asyncHandler(async (req, res) => {
   //get id from URL, hence .params
   //Populate will automatically replace the specified path in the document, with document(s) from other collection(s).
   //turns this => "user": "6244b84a0c6266631f87604b",
-  //into this =>
+  //into this => "user": {
+  // "_id": "6244b84a0c6266631f87604b",
+  // "name": "John Do",
+  // "email": "john@example.com" }
   const order = await Order.findById(req.params.id).populate(
     "user",
     "name email"
