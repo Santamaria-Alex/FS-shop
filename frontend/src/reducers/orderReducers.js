@@ -34,8 +34,9 @@ export const orderCreateReducer = (state = {}, action) => {
 
 /////////////////////////////////////////////////////////////////
 
+//set loading to true as default
 export const orderDetailsReducer = (
-  state = { orderItems: [], shippingAddress: {} },
+  state = { loading: true, orderItems: [], shippingAddress: {} },
   action
 ) => {
   switch (action.type) {

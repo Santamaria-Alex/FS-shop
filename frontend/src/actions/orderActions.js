@@ -68,7 +68,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     };
 
     //get data from backend that matches id passed in as parameter
-    const { data } = await axios.get(`/api/orders${id}`, config);
+    const { data } = await axios.get(`/api/orders/${id}`, config);
 
     //send data
     dispatch({
