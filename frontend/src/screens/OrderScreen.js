@@ -11,11 +11,20 @@ import Message from "../components/Message";
 const OrderScreen = () => {
   const dispatch = useDispatch();
 
+  const [sdkReady, setSdkReady] = useState(false);
+
   //get id from url params
   const { id } = useParams();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  //check whether orderPay (from orderReducer) is success
+  //check from state, ORDER_PAY_SUCCESS
+  const orderPay = useSelector((state) => state.orderPay);
+  //destructure loading and success from orderPay state
+  //renaming loading and success
+  const { loading: loadingPay, success: successPay } = orderPay;
 
   if (!loading) {
     order.itemsPrice = order.orderItems
@@ -24,12 +33,21 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
+    //get client id from backend
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get("/api/config/paypal");
-      console.log(clientId);
-    };
 
-    addPayPalScript();
+      //dynamically add paypal sdk script
+      //src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID"
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `http://paypal.com/sdk/js?client-id=${clientId}`;
+      script.async = true;
+      script.onload = () => {
+        setSdkReady(true);
+      };
+      document.body.appendChild(script);
+    };
 
     if (!order || order._id !== id) {
       dispatch(getOrderDetails(id));
