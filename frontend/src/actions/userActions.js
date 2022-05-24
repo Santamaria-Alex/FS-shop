@@ -260,7 +260,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
     };
 
     //delete data from backend
-    const { data } = await axios.delete(`/api/users/${id}`, config);
+    await axios.delete(`/api/users/${id}`, config);
 
     //send data
     dispatch({
