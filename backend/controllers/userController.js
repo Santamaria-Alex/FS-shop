@@ -161,8 +161,57 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("User not found.");
   }
+});
 
-  res.json(users);
+//////////////////////////////////////////////////////////////
+
+// @desc    Get user by ID
+// @route   GET /api/users/:id
+// @access  Private/Admin
+
+//async handler is middleware for handling exceptions
+const getUserById = asyncHandler(async (req, res) => {
+  //get user that matches url params id
+  //not getting password
+  const user = await User.findById(req.params.id).select("-password");
+
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    throw new Error("User not found");
+  }
+});
+
+//////////////////////////////////////////////////////////////
+
+// @desc    Update user
+// @route   PUT /api/users/:id
+// @access  Private/Admin
+
+//async handler is middleware for handling exceptions
+const updateUser = asyncHandler(async (req, res) => {
+  //get the logged in user
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+    const updatedUser = await user.save();
+
+    //send the updated data
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(404);
+    throw new Error("User Not Found");
+  }
 });
 
 module.exports = {
@@ -172,4 +221,6 @@ module.exports = {
   updateUserProfile,
   getUsers,
   deleteUser,
+  getUserById,
+  updateUser,
 };
