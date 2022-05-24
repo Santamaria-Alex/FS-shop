@@ -15,7 +15,6 @@ const UserEditScreen = () => {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
   //useDispatch is used to dispatch an action, while useSelector is used to get the state from the redux store
@@ -40,7 +39,7 @@ const UserEditScreen = () => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [user]);
+  }, [dispatch, userId, user]);
 
   const submitHandler = (e) => {
     e.preventDefault();
