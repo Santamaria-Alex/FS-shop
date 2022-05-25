@@ -9,6 +9,9 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_CREATE_REQUEST,
+  PRODUCT_CREATE_SUCCESS,
+  PRODUCT_CREATE_FAIL,
 } from "../constants/productConstants";
 
 //these funcs are action-creators
@@ -85,6 +88,47 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+/////////////////////////////////////////////////////////////////
+
+export const createProduct = () => async (dispatch, getState) => {
+  try {
+    //send request
+    dispatch({
+      type: PRODUCT_CREATE_REQUEST,
+    });
+
+    //destructure userInfo from userLogin, which is destructured from getState function
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    //pass in token into headers
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    //delete data from backend
+    //2nd arg is an empty {} bc we're not sending any data
+    const { data } = await axios.post(`/api/products`, {}, config);
+
+    //send data
+    dispatch({
+      type: PRODUCT_CREATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
