@@ -6,7 +6,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { getUserDetails, updateUser } from "../actions/userActions";
 import FormContainer from "../components/FormContainer";
-import { useLocation, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { USER_UPDATE_RESET } from "../constants/userConstants";
 
 const UserEditScreen = () => {
@@ -34,9 +34,6 @@ const UserEditScreen = () => {
     error: errorUpdate,
     success: successUpdate,
   } = userUpdate;
-
-  const location = useLocation();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
 
   //use this instead of history for V6
   const navigate = useNavigate();

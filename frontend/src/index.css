@@ -51,3 +51,8 @@ button {
   max-width: 2.5rem;
   max-height: 2.5rem;
 }
+
+.create-product-btn {
+  display: flex;
+  justify-content: end;
+}
