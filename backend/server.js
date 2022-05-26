@@ -7,6 +7,7 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const userRoutes = require("./routes/userRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const path = require("path");
 
 //this is where we hide stuff
 dotenv.config();
@@ -32,6 +33,9 @@ app.use("/api/upload", uploadRoutes);
 app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
+
+//make uploads folder static
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 //error handler for "not found" or 404,
 app.use(notFound);
