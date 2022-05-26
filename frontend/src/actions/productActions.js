@@ -12,6 +12,9 @@ import {
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
 } from "../constants/productConstants";
 
 //these funcs are action-creators
@@ -129,6 +132,52 @@ export const createProduct = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+/////////////////////////////////////////////////////////////////
+
+export const updateProduct = (product) => async (dispatch, getState) => {
+  try {
+    //send request
+    dispatch({
+      type: PRODUCT_UPDATE_REQUEST,
+    });
+
+    //destructure userInfo from userLogin, which is destructured from getState function
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    //pass in token into headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    //update data from backend
+    //sending product data in second arg that we passed in
+    const { data } = await axios.put(
+      `/api/products/${product._id}`,
+      product,
+      config
+    );
+
+    //send data
+    dispatch({
+      type: PRODUCT_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
