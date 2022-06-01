@@ -8,6 +8,7 @@ import { listProductDetails, updateProduct } from "../actions/productActions";
 import FormContainer from "../components/FormContainer";
 import { useNavigate, useParams } from "react-router";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
+import axios from "axios";
 
 const ProductEditScreen = () => {
   //get id from url params
@@ -20,6 +21,7 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   //useDispatch is used to dispatch an action, while useSelector is used to get the state from the redux store
   const dispatch = useDispatch();
@@ -60,6 +62,12 @@ const ProductEditScreen = () => {
       }
     }
   }, [dispatch, product, productId, successUpdate, navigate]);
+
+  //making http request so has to be async
+  const uploadFileHandler = async (e) => {
+    //
+    const file = e.target.files;
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -121,6 +129,13 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id="image-file"
+                label="Choose File"
+                custom
+                onChange={uploadFileHandler}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand">

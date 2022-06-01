@@ -7,13 +7,14 @@ const path = require("path");
 //this comes from multer docs
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "uploads/"); //callback and where files will be uploaded to
   },
   filename(req, file, cb) {
     cb(
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
+    ); //this is HOW we will save the files
+    //path module gets the extension ie jpeg, jpg etc. already includes the dot "."
   },
 });
 
@@ -36,7 +37,7 @@ const upload = multer({
   storage,
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
-  },
+  }, //making sure only jpeg, jpg and png can be uploaded
 });
 
 router.post("/", upload.single("image"), (req, res) => {
