@@ -63,11 +63,32 @@ const ProductEditScreen = () => {
     }
   }, [dispatch, product, productId, successUpdate, navigate]);
 
+  const uploadFileHandler = () => {};
+
   //making http request so has to be async
-  const uploadFileHandler = async (e) => {
-    //
-    const file = e.target.files;
-  };
+  // const uploadFileHandler = async (e) => {
+  //   //this returns an array, since user is able to upload multiple files and we only want the first
+  //   const file = e.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append("image", file);
+  //   setUploading(true);
+
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     };
+
+  //     const { data } = await axios.post("/api/upload", formData, config);
+
+  //     setImage(data);
+  //     setUploading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //     setUploading(false);
+  //   }
+  // };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -86,7 +107,7 @@ const ProductEditScreen = () => {
   };
 
   return (
-    <>
+    <div>
       <Link to="/admin/productlist" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -129,12 +150,13 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
-              <Form.File
+              <Form.Control
+                type="file"
                 id="image-file"
                 label="Choose File"
                 custom
                 onChange={uploadFileHandler}
-              ></Form.File>
+              ></Form.Control>
               {uploading && <Loader />}
             </Form.Group>
 
@@ -184,7 +206,7 @@ const ProductEditScreen = () => {
           </Form>
         )}
       </FormContainer>
-    </>
+    </div>
   );
 };
 
