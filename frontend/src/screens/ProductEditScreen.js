@@ -63,32 +63,30 @@ const ProductEditScreen = () => {
     }
   }, [dispatch, product, productId, successUpdate, navigate]);
 
-  const uploadFileHandler = () => {};
+  // making http request so has to be async
+  const uploadFileHandler = async (e) => {
+    //this returns an array, since user is able to upload multiple files and we only want the first
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
 
-  //making http request so has to be async
-  // const uploadFileHandler = async (e) => {
-  //   //this returns an array, since user is able to upload multiple files and we only want the first
-  //   const file = e.target.files[0];
-  //   const formData = new FormData();
-  //   formData.append("image", file);
-  //   setUploading(true);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
 
-  //   try {
-  //     const config = {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     };
+      const { data } = await axios.post("/api/upload", formData, config);
 
-  //     const { data } = await axios.post("/api/upload", formData, config);
-
-  //     setImage(data);
-  //     setUploading(false);
-  //   } catch (error) {
-  //     console.log(error);
-  //     setUploading(false);
-  //   }
-  // };
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -98,6 +96,7 @@ const ProductEditScreen = () => {
         _id: productId,
         name,
         price,
+        image,
         brand,
         category,
         description,
@@ -152,7 +151,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
               <Form.Control
                 type="file"
-                id="image-file"
+                // id="image-file"
                 label="Choose File"
                 custom
                 onChange={uploadFileHandler}
