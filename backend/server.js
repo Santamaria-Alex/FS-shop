@@ -34,7 +34,7 @@ app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-//make uploads folder static so it's not accessible by default
+//make uploads folder static bc it's not accessible by default
 //dirname will point to the current directory
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
