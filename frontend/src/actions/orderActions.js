@@ -15,6 +15,9 @@ import {
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
   ORDER_LIST_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_FAIL,
 } from "../constants/orderConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -140,6 +143,50 @@ export const payOrder =
       });
     }
   };
+
+/////////////////////////////////////////////////////////////////
+
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    //send request
+    dispatch({
+      type: ORDER_DELIVER_REQUEST,
+    });
+
+    //destructure userInfo from userLogin, which is destructured from getState function
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    //pass in token into headers
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    //update payment data from backend that matches id
+    const { data } = await axios.put(
+      `/api/orders/${order._id}/deliver`,
+      {},
+      config
+    );
+
+    //send data
+    dispatch({
+      type: ORDER_DELIVER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 /////////////////////////////////////////////////////////////////
 
