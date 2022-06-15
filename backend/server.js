@@ -8,6 +8,7 @@ const userRoutes = require("./routes/userRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const path = require("path");
+const morgan = require("morgan");
 
 //this is where we hide stuff
 dotenv.config();
@@ -22,6 +23,11 @@ const PORT = process.env.PORT || 8000;
 //this will allow us to use json data in the body
 //for instance, in userController we want to get the body data which is in json format
 app.use(express.json());
+
+//morgan will only run in development mode
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 //use routes from productRoutes.js
 app.use("/api/products", productRoutes);
