@@ -43,7 +43,7 @@ function App() {
             element={<ProductEditScreen />}
           />
           <Route path="admin/orderlist" element={<OrderListScreen />} />
-          <Route path="/search/:keyword" element={<HomeScreen />} />
+          <Route path="/search/:search" element={<HomeScreen />} />
           <Route path="/" index element={<HomeScreen />} />
         </Routes>
       </Container>

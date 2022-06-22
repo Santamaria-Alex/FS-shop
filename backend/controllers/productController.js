@@ -7,16 +7,19 @@ const Product = require("../models/productModel");
 //get all products from products.js
 //async handler is middleware for handling exceptions
 const getProducts = asyncHandler(async (req, res) => {
-  const keyword = req.query.keyword
-    ? {
+  const search = req.query.search;
+
+  const searching = search
+    ? // const keyword = req.query.keyword
+      {
         name: {
-          $regex: req.query.keyword, //regex allows search result to show up even if it's not all typed out
+          $regex: search, //regex allows search result to show up even if it's not all typed out
           $options: "i",
         },
       }
     : {};
 
-  const products = await Product.find({ ...keyword }); //by not passing in an arg. it will return everything in Product model
+  const products = await Product.find({ ...searching }); //by not passing in an arg. it will return everything in Product model
 
   res.json(products);
 });

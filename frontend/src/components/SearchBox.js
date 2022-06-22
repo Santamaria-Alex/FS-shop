@@ -1,35 +1,44 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
 const SearchBox = () => {
-  const [keyword, setKeyword] = useState("");
-
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState("");
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+    if (search.trim()) {
+      navigate(`/search/${search}`);
     } else {
       navigate("/");
     }
+
+    setSearch("");
   };
 
   return (
-    <Form onSubmit={submitHandler}>
-      <Form.Control
-        type="text"
-        name="q"
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholde="Search Products..."
-        className="mr-sm-2 ml-sm-5"
-      ></Form.Control>
-      <Button type="submit" variant="oultine-success" className="p-2">
-        Search
-      </Button>
+    <Form className="d-flex me-auto" onSubmit={submitHandler}>
+      <InputGroup>
+        <Form.Control
+          type="text"
+          name="q"
+          id="q"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search Products..."
+          className="mr-sm-2 ml-sm-5"
+        ></Form.Control>
+        <Button
+          id="button-search"
+          type="submit"
+          variant="oultine-primary"
+          className="p-2"
+        ></Button>
+      </InputGroup>
     </Form>
   );
 };
