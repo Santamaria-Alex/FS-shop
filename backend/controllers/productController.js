@@ -7,6 +7,9 @@ const Product = require("../models/productModel");
 //get all products from products.js
 //async handler is middleware for handling exceptions
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 4;
+  const page = Number(req.query.pageNumer) || 1;
+
   const search = req.query.search;
 
   const searching = search
@@ -19,9 +22,12 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const products = await Product.find({ ...searching }); //by not passing in an arg. it will return everything in Product model
+  const count = await Product.count({ ...searching });
+  const products = await Product.find({ ...searching })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1)); //by not passing in an arg. it will return everything in Product model
 
-  res.json(products);
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

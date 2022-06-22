@@ -22,13 +22,15 @@ import {
 
 //these funcs are action-creators
 export const listProducts =
-  (search = "") =>
+  (search = "", pageNumber = "") =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
 
       //get data from products.js in backend
-      const { data } = await axios.get(`/api/products?search=${search}`);
+      const { data } = await axios.get(
+        `/api/products?search=${search}&pageNumber=${pageNumber}`
+      );
 
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
