@@ -30,14 +30,16 @@ const SearchBox = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search Products..."
-          className="mr-sm-2 ml-sm-5"
+          className="searchbar"
         ></Form.Control>
         <Button
           id="button-search"
           type="submit"
-          variant="oultine-primary"
-          className="p-2"
-        ></Button>
+          variant="success"
+          className="search-btn"
+        >
+          Search
+        </Button>
       </InputGroup>
     </Form>
   );
