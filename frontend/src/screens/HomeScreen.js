@@ -8,6 +8,7 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useParams } from "react-router";
 import Paginate from "../components/Paginate";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = () => {
   const { search, pageNumber } = useParams();
@@ -43,6 +44,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      {!search && <ProductCarousel />}
       <main className="py-3">
         <Container>
           <h1>Latest Product</h1>
