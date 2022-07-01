@@ -9,7 +9,9 @@ import Loader from "../components/Loader";
 import { useParams } from "react-router";
 
 const HomeScreen = () => {
-  const { search } = useParams();
+  const { search, pageNumber } = useParams();
+  console.log(pageNumber);
+  console.log(search);
 
   //DONT NEED THIS WHEN USING REDUX
   // const [products, setProducts] = useState([]);
@@ -22,8 +24,8 @@ const HomeScreen = () => {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(search));
-  }, [dispatch, search]);
+    dispatch(listProducts(search, pageNumber));
+  }, [dispatch, search, pageNumber]);
 
   //GOING TO USE REDUX INSTEAD OF AXIOS TO GET DATA
   //as soon as page loads, useEffect fires off

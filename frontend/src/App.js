@@ -44,6 +44,11 @@ function App() {
           />
           <Route path="admin/orderlist" element={<OrderListScreen />} />
           <Route path="/search/:search" element={<HomeScreen />} />
+          <Route path="/page/:pageNumber" element={<HomeScreen />} />
+          <Route
+            path="/search/:search/page/:pageNumber"
+            element={<HomeScreen />}
+          />
           <Route path="/" index element={<HomeScreen />} />
         </Routes>
       </Container>
