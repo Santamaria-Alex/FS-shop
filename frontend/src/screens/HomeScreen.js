@@ -7,11 +7,12 @@ import { listProducts } from "../actions/productActions";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useParams } from "react-router";
+import Paginate from "../components/Paginate";
 
 const HomeScreen = () => {
   const { search, pageNumber } = useParams();
-  console.log(pageNumber);
-  console.log(search);
+  // console.log(pageNumber);
+  // console.log(search);
 
   //DONT NEED THIS WHEN USING REDUX
   // const [products, setProducts] = useState([]);
@@ -21,7 +22,7 @@ const HomeScreen = () => {
   //useSelector grabs data from the state, in this case productList
   const productList = useSelector((state) => state.productList);
   //get loading, error and products from productList
-  const { loading, error, products } = productList;
+  const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
     dispatch(listProducts(search, pageNumber));
@@ -50,15 +51,22 @@ const HomeScreen = () => {
           ) : error ? (
             <Message variant="danger">{error}</Message>
           ) : (
-            <Row>
-              {products.map((product) => {
-                return (
-                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                    <Product product={product} />
-                  </Col>
-                );
-              })}
-            </Row>
+            <>
+              <Row>
+                {products.map((product) => {
+                  return (
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                      <Product product={product} />
+                    </Col>
+                  );
+                })}
+              </Row>
+              <Paginate
+                pages={pages}
+                page={page}
+                search={search ? search : ""}
+              />
+            </>
           )}
         </Container>
       </main>
