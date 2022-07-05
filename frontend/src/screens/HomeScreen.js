@@ -9,6 +9,8 @@ import Loader from "../components/Loader";
 import { useParams } from "react-router";
 import Paginate from "../components/Paginate";
 import ProductCarousel from "../components/ProductCarousel";
+import Meta from "../components/Meta";
+import { Link } from "react-router-dom";
 
 const HomeScreen = () => {
   const { search, pageNumber } = useParams();
@@ -44,7 +46,14 @@ const HomeScreen = () => {
 
   return (
     <>
-      {!search && <ProductCarousel />}
+      <Meta />
+      {!search ? (
+        <ProductCarousel />
+      ) : (
+        <Link to="/" className="btn btn-dark">
+          Go Back
+        </Link>
+      )}
       <main className="py-3">
         <Container>
           <h1>Latest Product</h1>
